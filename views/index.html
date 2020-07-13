@@ -13,7 +13,6 @@
     <div class="d-sm-flex">
         <label for="shapes-type-select">Validation shapes:</label>
         <select id="shapes-type-select" class="form-control">
-            <option value="shex" selected>ShEx</option>
             <option value="shacl">SHACL</option>
         </select>
     </div>
@@ -47,7 +46,7 @@
         </div>
     </div>
 </div>
-<div class="shex-specific">
+<div class="shex-specific d-sm-none">
     <div class="d-sm-flex">
         <label for="start-shape">Start shape:</label>
         <input type="text" class="form-control" id="start-shape" placeholder="eg. http://schema.org/shex#Recipe">
@@ -60,7 +59,10 @@
 <div class="validate-wrapper">
     <div class="btn btn-light" id="validate-btn">Validate!</div>
 </div>
-<div class="report"></div>
+<div class="report-wrapper">
+    <h2>Report</h2>
+    <pre class="report"></pre>
+</div>
 <script src="javascripts/libs/jquery.min.js"></script>
 <script src="javascripts/libs/shacl.bundle.js"></script>
 <script src="javascripts/libs/shex.bundle.js"></script>

@@ -9,7 +9,7 @@ $('#input-type-select').change(() => {
 
 function changeFileInputLabel(inputId) {
     let file = $(inputId).get(0).files[0];
-    $(`label[for=${file.name}]`);
+    $(`label[for=${inputId.substr(1)}]`).text(file.name);
 }
 
 $('#shapes-input-file').change(() => changeFileInputLabel('#shapes-input-file'));
@@ -46,7 +46,7 @@ function validateShex(shapes, data) {
 
 function validateShacl(shapes, data) {
     shacl.validate(data, shapes)
-        .then(res => $('.report').text(JSON.stringify(res)))
+        .then(res => $('.report').text(JSON.stringify({conforms: res.conforms, results: res.results}, undefined, 2)))
         .catch(err => $('.report').text("Error: " + JSON.stringify(err)));
 }
 

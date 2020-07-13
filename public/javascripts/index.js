@@ -17,7 +17,9 @@ $('#schema-input-file').change(() => changeFileInputLabel('#schema-input-file'))
 
 function readTextFromFile(elementId) {
     let resolver;
-    let promise = new Promise((res, rej) => {resolver = res});
+    let promise = new Promise((res, rej) => {
+        resolver = res
+    });
     let onReaderLoad = (event) => {
         resolver(event.target.result);
     };
@@ -40,27 +42,34 @@ function validateShex(shapes, data) {
     let dataUrl = stringToUrl(data);
 
     shex.validate(dataUrl, shapesUrl, dataId, startShape)
-        .then(res => $('.report').text(JSON.stringify(res)))
-        .catch(err => $('.report').text("Error: " + JSON.stringify(err)));
+        .then(res => {
+            let result = {conforms: true};
+            if (res.errors !== undefined) {
+                result.conforms = false;
+                result.errors = res.errors;
+            }
+            $('.report').text(JSON.stringify(result, undefined, 2));
+        })
+        .catch(err => console.log(err + "\n" + err.stack));
 }
 
 function validateShacl(shapes, data) {
     shacl.validate(data, shapes)
         .then(res => $('.report').text(JSON.stringify({conforms: res.conforms, results: res.results}, undefined, 2)))
-        .catch(err => $('.report').text("Error: " + JSON.stringify(err)));
+        .catch(err => $('.report').text("Error: " + err));
 }
 
 $('#validate-btn').on('click', () => {
     if ($('#input-type-select').val() === "text") {
         let shapes = $("#shapes-input").val();
         let data = $("#schema-input").val();
-        $('#shapes-type-select').val() === "shex"? validateShex(shapes, data) : validateShacl(shapes, data);
+        $('#shapes-type-select').val() === "shex" ? validateShex(shapes, data) : validateShacl(shapes, data);
     } else {
         Promise.all([readTextFromFile('#shapes-input-file'), readTextFromFile('#schema-input-file')])
             .then(values => {
                 let shapes = values[0];
                 let data = values[1];
-                $('#shapes-type-select').val() === "shex"? validateShex(shapes, data) : validateShacl(shapes, data);
+                $('#shapes-type-select').val() === "shex" ? validateShex(shapes, data) : validateShacl(shapes, data);
             });
     }
 });

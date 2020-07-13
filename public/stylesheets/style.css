@@ -1,0 +1,40 @@
+body {
+  padding: 20px;
+  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+body > div {
+  margin: 1em auto;
+}
+
+label {
+  white-space: nowrap;
+  margin: auto 0.3em auto 0;
+}
+
+.control-panel > div {
+  margin-right: 1em;
+}
+
+.text-inputs > div {
+  width: 100%;
+}
+
+.file-inputs > div {
+  margin: 0.5em 0;
+  width: 100%;
+}
+
+.shex-specific > div {
+  margin: 0.3em 0;
+}
+
+.validate-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  cursor: pointer;
+}

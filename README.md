@@ -1,6 +1,5 @@
 # schema_validation_web
-Web interface for schema validation with ShEx and SHACL. </br>
-**Currently only SHACL is available, but ShEx will be added soon** </br></br>
+Web interface for quick json-ld data validation with ShEx and SHACL. </br></br>
 Try it here: http://35.246.39.127:3000/ </br></br>
 To run it on your local machine:
 ```

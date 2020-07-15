@@ -41,7 +41,7 @@ function validateShex(shapes, data) {
     let shapesUrl = stringToUrl(shapes);
     let dataUrl = stringToUrl(data);
 
-    shex.validate(dataUrl, shapesUrl, dataId, startShape)
+    validation.validateShEx(dataUrl, shapesUrl, dataId, startShape)
         .then(res => {
             let result = {conforms: true};
             if (res.errors !== undefined) {
@@ -54,7 +54,7 @@ function validateShex(shapes, data) {
 }
 
 function validateShacl(shapes, data) {
-    shacl.validate(data, shapes)
+    validation.validateShacl(data, shapes)
         .then(res => $('.report').text(JSON.stringify({conforms: res.conforms, results: res.results}, undefined, 2)))
         .catch(err => $('.report').text("Error: " + err));
 }

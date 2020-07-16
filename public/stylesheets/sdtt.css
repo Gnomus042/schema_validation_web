@@ -1,0 +1,44 @@
+body {
+    padding: 20px;
+    font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+body > div {
+    margin: 1em auto;
+    width: 100%;
+}
+
+.control-panel * {
+    display: flex;
+    margin: auto 10px auto 0;
+}
+
+label {
+    white-space: nowrap;
+}
+
+.wrapper {
+    width: 50%;
+    padding: 5px;
+}
+
+.wrapper * {
+    width: 100%;
+}
+
+.results-wrapper {
+    overflow: hidden;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-flow: column;
+}
+
+.input-wrapper > * {
+    margin-bottom: 10px;
+}
+
+.inputs {
+    position: relative;
+}

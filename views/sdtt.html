@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SDTT</title>
+
+    <link type="text/css" rel="stylesheet" href="stylesheets/lib/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="stylesheets/sdtt.css">
+</head>
+<body>
+    <h1>SDTT-like testing for recipes</h1>
+    <div class="control-panel">
+        <div>
+            <label for="input-type">Input type</label>
+            <select id="input-type" class="form-control">
+                <option value="text">Text</option>
+                <option value="file">File</option>
+            </select>
+        </div>
+    </div>
+    <div class="d-sm-flex">
+        <div class="wrapper input-wrapper">
+            <div class="inputs file-inputs d-sm-none">
+                <label for="file-data-input" class="custom-file-label">Choose a file</label>
+                <input type="file" class="custom-file-input" id="file-data-input"/>
+            </div>
+            <div class="inputs text-inputs">
+                <textarea id="text-data-input" cols="30" rows="20"></textarea>
+            </div>
+            <div class="btn btn-light" id="validate-btn">Validate</div>
+        </div>
+        <div class="wrapper results-wrapper d-sm-none">
+            <div>Conforms: <span id="conforms"></span></div>
+            <div>Errors: <span id="errors-count"></span></div>
+            <pre id="errors"></pre>
+            <div>Warnings: <span id="warnings-count"></span></div>
+            <pre id="warnings"></pre>
+        </div>
+    </div>
+    <script src="javascripts/libs/validation.bundle.js"></script>
+    <script src="javascripts/libs/jquery.min.js"></script>
+    <script src="javascripts/sdtt.js"></script>
+</body>
+</html>

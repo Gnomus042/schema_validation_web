@@ -42,3 +42,14 @@ label {
 .inputs {
     position: relative;
 }
+
+.tests {
+    overflow: hidden;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.test {
+    width: 100px;
+    margin-right: 10px;
+}

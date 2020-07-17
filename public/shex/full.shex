@@ -258,10 +258,6 @@ BASE <http://schema.org/shex>
     schema:datePublished (@<#Date> OR @<#DateTime>);
     schema:description @<#Text>;
     schema:keywords @<#Text>;
-    schema:nutrition  {
-        a [schema:NutritionInformation];
-        schema:calories {a [schema:Energy] };
-    };
     schema:prepTime @<#Duration>;
     schema:recipeCategory  @<#Text>;
     schema:recipeCuisine  @<#Text>;

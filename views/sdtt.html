@@ -5,6 +5,7 @@
     <title>SDTT</title>
 
     <link type="text/css" rel="stylesheet" href="stylesheets/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/lib/jsonTree.css">
     <link type="text/css" rel="stylesheet" href="stylesheets/sdtt.css">
 </head>
 <body>
@@ -35,14 +36,15 @@
         </div>
         <div class="wrapper results-wrapper d-sm-none">
             <div>Conforms: <span id="conforms"></span></div>
-            <div>Errors: <span id="errors-count"></span></div>
+            <div style="color: red">Errors: <span id="errors-count"></span></div>
             <pre id="errors"></pre>
-            <div>Warnings: <span id="warnings-count"></span></div>
+            <div style="color: orange;">Warnings: <span id="warnings-count"></span></div>
             <pre id="warnings"></pre>
         </div>
     </div>
     <script src="javascripts/libs/validation.bundle.js"></script>
     <script src="javascripts/libs/jquery.min.js"></script>
+    <script src="javascripts/libs/jsonTree.js"></script>
     <script src="javascripts/sdtt.js"></script>
 </body>
 </html>

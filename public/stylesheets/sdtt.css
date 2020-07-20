@@ -30,6 +30,10 @@ label {
     overflow: hidden;
 }
 
+.results-wrapper > div {
+    font-weight: bold;
+}
+
 .input-wrapper {
     display: flex;
     flex-flow: column;
@@ -53,3 +57,4 @@ label {
     width: 100px;
     margin-right: 10px;
 }
+

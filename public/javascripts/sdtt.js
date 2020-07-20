@@ -2,6 +2,9 @@ const shexURL = location + "shex/full.shex";
 let context;
 let tests;
 
+let wrapperErrors = document.getElementById("errors");
+let wrapperWarnings = document.getElementById("warnings");
+
 $.get('shex/context.json', data => {
     context = data;
 });
@@ -92,39 +95,23 @@ $("#validate-btn").on('click', () => {
             data['@context'] = context;
             let dataId = data["@id"];
             let dataURL = stringToUrl(JSON.stringify(data))
-            let errors = validation.validateShEx(dataURL, shexURL, dataId, "http://schema.org/shex#GoogleRecipe");
-            let warnings = validation.validateShEx(dataURL, shexURL, dataId, "http://schema.org/shex#GoogleRecipeStrict");
+            let errors = validation.validateShEx(dataURL, shexURL, dataId, "http://schema.org/shex#GoogleRecipe", true);
+            let warnings = validation.validateShEx(dataURL, shexURL, dataId, "http://schema.org/shex#GoogleRecipeStrict", true);
             Promise.all([errors, warnings]).then(res => {
-                let errors = simplifyResult(res[0]);
-                let warnings = simplifyResult(res[1]);
-                printResults(res[0], res[1]);
+                printResults(...res);
             })
         });
 });
 
-function removeUrl(url) {
-    let slashIdx = url.lastIndexOf("/");
-    return url.substr(slashIdx+1);
-}
-
-function simplifyResult(result) {
-    if (result.errors) {
-        let errors = [];
-        result.errors.forEach(err => {
-            errors = errors.concat(simplifyResult(err));
-        });
-        return errors;
-    }
-    return [result]
-}
-
 function printResults(errors, warnings) {
     $(".results-wrapper").removeClass('d-sm-none');
-    $("#conforms").text(errors.length + warnings.length === 0);
+    $("#conforms").text(errors.length === 0);
     $("#errors-count").text(errors.length);
     $("#warnings-count").text(warnings.length);
-    $("#errors").text(JSON.stringify(errors, undefined, 2));
-    $("#warnings").text(JSON.stringify(warnings, undefined, 2));
+    //jsonTree.create(errors, wrapperErrors);
+    //jsonTree.create(warnings, wrapperWarnings);
+    $("#errors").text(errors.join('\n'));
+    $("#warnings").text(warnings.join('\n'));
 }
 
 $("#shex-btn").on('click', () => {

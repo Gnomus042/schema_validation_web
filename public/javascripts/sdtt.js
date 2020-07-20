@@ -91,6 +91,9 @@ $("#validate-btn").on('click', () => {
             if (data["@id"] === undefined) {
                 alert("Please add the @id field");
                 return;
+            } else if (data["@type"] !== "Recipe") {
+                printResults(["@type is not Recipe"], []);
+                return;
             }
             data['@context'] = context;
             let dataId = data["@id"];

@@ -3,11 +3,12 @@ PREFIX schema: <http://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX techdoc: <https://developers.google.com/search/docs/data-types/>
+PREFIX techdoc: <http://schema.org/>
 BASE <http://schema.org/shex>
 
 
 <#Duration> (@<#Text> AND /^(-?)P(?=[0-9]|T[0-9])(?:([0-9]+)Y)?(?:([0-9]+)M)?(?:([0-9]+)([DW]))?(?:T(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+(?:\.[0-9]+)?)S)?)?$/)
+
 
 
 <#Text> LITERAL OR xsd:string
@@ -44,7 +45,7 @@ BASE <http://schema.org/shex>
 	schema:creator ({ a [schema:Organization] } OR { a [schema:Person] }) *;
 	schema:dateCreated (@<#Date> OR @<#DateTime>) ?;
 	schema:dateModified (@<#DateTime> OR @<#Date>) *;
-	schema:datePublished (@<#Date> OR @<#DateTime>) ?;
+	schema:datePublished (@<#Date> OR @<#DateTime>) *;
 	schema:discussionUrl @<#URL> *;
 	schema:editor { a [schema:Person] } *;
 	schema:educationalAlignment { a [schema:AlignmentObject] } ?;
@@ -148,7 +149,7 @@ BASE <http://schema.org/shex>
 	schema:recipeCategory  @<#Text> ?;
 	schema:recipeCuisine  @<#Text> ?;
 	schema:recipeIngredient  @<#Text> ?;
-	schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) *;
+	schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) ?;
 	schema:recipeYield ({ a [schema:QuantitativeValue] } OR @<#Text>) ?;
 	schema:suitableForDiet (@<#Text> AND /http:\/\/schema.org\/(DiabeticDiet|GlutenFreeDiet|HalalDiet|HinduDiet|KosherDiet|LowCalorieDiet|LowFatDiet|LowLactoseDiet|LowSaltDiet|VeganDiet|VegetarianDiet)/) OR
 	    { a [schema:DiabeticDiet schema:GlutenFreeDiet schema:HalalDiet schema:HinduDiet schema:KosherDiet schema:LowCalorieDiet schema:LowFatDiet schema:LowLactoseDiet schema:LowSaltDiet schema:VeganDiet schema:VegetarianDiet] } ?;
@@ -246,12 +247,12 @@ BASE <http://schema.org/shex>
 ##################
 # Google-specific
 
-<#GoogleRecipe> @<#Recipe> AND EXTRA a {
+<#GoogleRecipe> @<#Recipe> AND{
     schema:name @<#Text>;
     schema:image @<#URL> OR @<#ImageObject> +;
 }
 
-<#GoogleRecipeStrict> @<#Recipe> AND EXTRA a {
+<#GoogleRecipeStrict> @<#Recipe> AND {
     schema:aggregateRating { a [schema:AggregateRating] };
     schema:author ({ a [schema:Person] } OR { a [schema:Organization] }) +;
     schema:cookTime  @<#Duration>;
@@ -265,4 +266,62 @@ BASE <http://schema.org/shex>
     schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) +;
     schema:recipeYield @<#Text> +;
     schema:totalTime @<#Duration>;
+}
+
+###########################
+# Bing-specific
+
+<#BingRecipe> @<#Recipe> AND {
+    schema:name @<#Text>;
+}
+
+<#BingRecipeStrict> @<#Recipe> AND {
+    schema:author ({ a [schema:Person] } OR { a [schema:Organization] }) +;
+    schema:datePublished (@<#Date> OR @<#DateTime>);
+    schema:recipeCategory  @<#Text>;
+    schema:description @<#Text>;
+    schema:image @<#URL> OR @<#ImageObject> +;
+    schema:review { a [schema:Review] };
+    schema:prepTime @<#Duration>;
+    schema:totalTime @<#Duration>;
+    schema:recipeYield @<#Text> +;
+	schema:nutrition  { a [schema:NutritionInformation] };
+	schema:recipeIngredient @<#Text> +;
+    schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) +;
+}
+
+
+##############
+# Pinterest-specific
+
+<#PinterestRecipe> @<#Recipe> AND {
+    schema:name @<#Text>;
+    schema:ingredients  @<#Text> +;
+}
+
+<#PinterestRecipeStrict> @<#Recipe> AND {
+    schema:url @<#URL> *;
+    schema:image (@<#URL> OR @<#ImageObject>) {1,6};
+    schema:totalTime @<#Duration>;
+    schema:recipeYield @<#Text> +;
+    schema:aggregateRating { a [schema:AggregateRating] };
+}
+
+#################
+# Yandex-specific
+
+<#YandexRecipe> @<#Recipe> AND {
+    schema:name @<#Text>;
+    schema:recipeIngredient @<#Text> +;
+}
+
+<#YandexRecipeStrict> @<#Recipe> AND {
+    schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) +;
+    schema:recipeCategory  @<#Text>;
+    schema:recipeYield @<#Text> +;
+    schema:totalTime @<#Duration>;
+    schema:image @<#URL> OR @<#ImageObject> +;
+    schema:author ({ a [schema:Person] } OR { a [schema:Organization] }) +;
+    schema:recipeCuisine  @<#Text>;
+    schema:nutrition  { a [schema:NutritionInformation] };
 }

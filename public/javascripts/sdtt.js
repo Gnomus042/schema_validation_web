@@ -9,6 +9,12 @@ $.get('shex/context.json', data => {
     context = data;
 });
 
+$(document).bind('keypress', function(e) {
+    if(e.keyCode===13){
+        $("#validate-btn").click();
+    }
+});
+
 $(document).ready(() => {
     $.get('sdtt/tests', data => {
         tests = data;
@@ -17,7 +23,7 @@ $(document).ready(() => {
             `<div class="test btn btn-light" onclick="setTest('${test.link}')">Test ${test.id}</div>`
         ));
     });
-})
+});
 
 function setTest(testLink) {
     $.get(testLink, data => {
@@ -97,9 +103,10 @@ $("#validate-btn").on('click', () => {
             }
             data['@context'] = context;
             let dataId = data["@id"];
-            let dataURL = stringToUrl(JSON.stringify(data))
-            let errors = validation.validateShEx(dataURL, shexURL, dataId, "http://schema.org/shex#GoogleRecipe", true);
-            let warnings = validation.validateShEx(dataURL, shexURL, dataId, "http://schema.org/shex#GoogleRecipeStrict", true);
+            let dataURL = stringToUrl(JSON.stringify(data));
+            let orgContext = $("#context").val();
+            let errors = validation.validateShEx(dataURL, shexURL, dataId, `http://schema.org/shex#${orgContext}Recipe`, true);
+            let warnings = validation.validateShEx(dataURL, shexURL, dataId, `http://schema.org/shex#${orgContext}RecipeStrict`, true);
             Promise.all([errors, warnings]).then(res => {
                 printResults(...res);
             })

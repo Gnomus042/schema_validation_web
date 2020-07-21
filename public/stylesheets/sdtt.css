@@ -8,6 +8,10 @@ body > div {
     width: 100%;
 }
 
+.control-panel {
+    display: flex;
+}
+
 .control-panel * {
     display: flex;
     margin: auto 10px auto 0;

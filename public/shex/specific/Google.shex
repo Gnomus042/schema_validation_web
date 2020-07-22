@@ -1,0 +1,22 @@
+# used for errors
+<#GoogleRecipe> @<#Recipe> AND{
+    schema:name @<#Text>
+    schema:image @<#URL> OR @<#ImageObject> +;
+}
+
+# used for warnings
+<#GoogleRecipeStrict> @<#Recipe> AND {
+    schema:aggregateRating { a [schema:AggregateRating] };
+    schema:author ({ a [schema:Person] } OR { a [schema:Organization] }) +;
+    schema:cookTime  @<#Duration>;
+    schema:datePublished (@<#Date> OR @<#DateTime>);
+    schema:description @<#Text>;
+    schema:keywords @<#Text>;
+    schema:prepTime @<#Duration>;
+    schema:recipeCategory  @<#Text>;
+    schema:recipeCuisine  @<#Text>;
+    schema:recipeIngredient @<#Text> +;
+    schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) +;
+    schema:recipeYield @<#Text> +;
+    schema:totalTime @<#Duration>;
+}

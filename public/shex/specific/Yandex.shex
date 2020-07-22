@@ -1,0 +1,17 @@
+# used for errors
+<#YandexRecipe> @<#Recipe> AND {
+    schema:name @<#Text>;
+    schema:recipeIngredient @<#Text> +;
+}
+
+# used for warnings
+<#YandexRecipeStrict> @<#Recipe> AND {
+    schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) +;
+    schema:recipeCategory  @<#Text>;
+    schema:recipeYield @<#Text> +;
+    schema:totalTime @<#Duration>;
+    schema:image @<#URL> OR @<#ImageObject> +;
+    schema:author ({ a [schema:Person] } OR { a [schema:Organization] }) +;
+    schema:recipeCuisine  @<#Text>;
+    schema:nutrition  { a [schema:NutritionInformation] };
+}

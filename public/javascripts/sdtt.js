@@ -2,9 +2,6 @@ const shexURL = location + "shex/full.shex";
 let context;
 let tests;
 
-let wrapperErrors = document.getElementById("errors");
-let wrapperWarnings = document.getElementById("warnings");
-
 $.get('shex/context.json', data => {
     context = data;
 });
@@ -23,6 +20,7 @@ $(document).ready(() => {
             `<div class="test btn btn-light" onclick="setTest('${test.link}')">Test ${test.id}</div>`
         ));
     });
+    changeContext();
 });
 
 function setTest(testLink) {
@@ -40,12 +38,10 @@ $(document).delegate('#text-data-input', 'keydown', function(e) {
         var start = this.selectionStart;
         var end = this.selectionEnd;
 
-        // set textarea value to: text before caret + tab + text after caret
         $(this).val($(this).val().substring(0, start)
             + "\t"
             + $(this).val().substring(end));
 
-        // put caret at right position again
         this.selectionStart =
             this.selectionEnd = start + 1;
     }
@@ -54,6 +50,16 @@ $(document).delegate('#text-data-input', 'keydown', function(e) {
 $("#input-type").change(() => {
     $('.inputs').toggleClass('d-sm-none');
 });
+
+$("#context").change(() => changeContext());
+
+function changeContext() {
+    let context = $("#context").val();
+    $(".shex-preview>h2>span").text(context);
+    $.get(`shex/specific/${context}.shex`, res => {
+        $(".shex-shapes").text(res);
+    });
+}
 
 $("#file-data-input").change(() => {
     let file = $("#file-data-input").get(0).files[0];

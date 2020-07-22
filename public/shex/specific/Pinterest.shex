@@ -1,0 +1,14 @@
+# used for errors
+<#PinterestRecipe> @<#Recipe> AND {
+    schema:name @<#Text>;
+    schema:ingredients  @<#Text> +;
+}
+
+# used for warnings
+<#PinterestRecipeStrict> @<#Recipe> AND {
+    schema:url @<#URL> *;
+    schema:image (@<#URL> OR @<#ImageObject>) {1,6};
+    schema:totalTime @<#Duration>;
+    schema:recipeYield @<#Text> +;
+    schema:aggregateRating { a [schema:AggregateRating] };
+}

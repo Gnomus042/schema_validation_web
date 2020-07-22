@@ -1,0 +1,20 @@
+# used for errors
+<#BingRecipe> @<#Recipe> AND {
+    schema:name @<#Text>;
+}
+
+# used for warnings
+<#BingRecipeStrict> @<#Recipe> AND {
+    schema:author ({ a [schema:Person] } OR { a [schema:Organization] }) +;
+    schema:datePublished (@<#Date> OR @<#DateTime>);
+    schema:recipeCategory  @<#Text>;
+    schema:description @<#Text>;
+    schema:image @<#URL> OR @<#ImageObject> +;
+    schema:review { a [schema:Review] };
+    schema:prepTime @<#Duration>;
+    schema:totalTime @<#Duration>;
+    schema:recipeYield @<#Text> +;
+	schema:nutrition  { a [schema:NutritionInformation] };
+	schema:recipeIngredient @<#Text> +;
+    schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) +;
+}

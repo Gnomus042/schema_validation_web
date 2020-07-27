@@ -6,8 +6,16 @@ var app = express();
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/views/sdtt.html'))
-})
+    res.redirect('/shex');
+});
+
+app.get('/shex', function (req, res) {
+    res.sendFile(path.join(__dirname + '/views/sdtt-shex.html'));
+});
+
+app.get('/shacl', function (req, res) {
+    res.sendFile(path.join(__dirname + '/views/sdtt-shacl.html'));
+});
 
 app.get('/test', function (req, res) {
     res.sendFile(path.join(__dirname + '/views/test.html'));
@@ -17,7 +25,7 @@ app.get('/sdtt/tests', function (req, res) {
     let tests = [];
     fs.readdir('public/shex/tests', (err, files) => {
         files.forEach((file, idx) => {
-            let test = {id: idx, link: `shex/tests/${file}`}
+            let test = {id: idx, link: `tests/${file}`}
             tests.push(test);
         });
         res.json(tests);

@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <title>SDTT</title>
 
-    <link type="text/css" rel="stylesheet" href="stylesheets/lib/bootstrap.min.css">
-    <link rel="stylesheet" href="stylesheets/lib/jsonTree.css">
-    <link type="text/css" rel="stylesheet" href="stylesheets/sdtt.css">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/lib/jsonTree.css">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/sdtt.css">
 </head>
 <body>
     <h1>SDTT-like testing for recipes</h1>
+    <nav class="d-flex">
+        <a class="btn btn-dark" href="/shex">ShEx</a>
+        <a class="btn btn-light" href="/shacl">SHACL</a>
+    </nav>
     <div class="control-panel">
         <div>
             <label for="input-type">Input type:</label>
@@ -55,9 +59,10 @@
         <h2>ShEx shapes for <span></span></h2>
         <pre class="shex-shapes"></pre>
     </div>
-    <script src="javascripts/libs/validation.bundle.js"></script>
-    <script src="javascripts/libs/jquery.min.js"></script>
-    <script src="javascripts/libs/jsonTree.js"></script>
-    <script src="javascripts/sdtt.js"></script>
+    <script src="/javascripts/libs/validation.bundle.js"></script>
+    <script src="/javascripts/libs/jquery.min.js"></script>
+    <script src="/javascripts/libs/jsonTree.js"></script>
+    <script src="/javascripts/base.js"></script>
+    <script src="/javascripts/sdtt-shex.js"></script>
 </body>
 </html>

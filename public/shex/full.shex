@@ -34,7 +34,7 @@ BASE <http://schema.org/shex>
 	schema:award @<#Text> ?;
 	schema:awards @<#Text> *;
 	schema:character { a [schema:Person] } *;
-	schema:citation (@<#CreativeWork> OR @<#Text>) *;
+	# schema:citation (@<#CreativeWork> OR @<#Text>) *;
 	schema:comment { a [schema:Comment] } *;
 	schema:commentCount { a [schema:Integer] } ?;
 	schema:contentLocation { a [schema:Place] } ?;
@@ -53,23 +53,23 @@ BASE <http://schema.org/shex>
 	schema:encoding @<#MediaObject> ?;
 	schema:encodingFormat (@<#URL> OR @<#Text>) ?;
 	schema:encodings @<#MediaObject> *;
-	schema:exampleOfWork @<#CreativeWork> *;
+	# schema:exampleOfWork @<#CreativeWork> *;
 	schema:expires @<#Date> ?;
 	schema:funder ({ a [schema:Organization] } OR { a [schema:Person] }) *;
 	schema:genre (@<#Text> OR @<#URL>) ?;
-	schema:hasPart @<#CreativeWork> *;
+	# schema:hasPart @<#CreativeWork> *;
 	schema:headline @<#Text> ?;
 	schema:inLanguage (@<#Text> OR { a [schema:Language] }) *;
 	schema:interactionStatistic { a [schema:InteractionCounter] } ?;
 	schema:interactivityType (@<#Text> AND /active|expositive|mixed/) ?;
 	schema:isAccessibleForFree @<#Boolean> ?;
-	schema:isBasedOn ({ a [schema:Product] } OR @<#CreativeWork> OR @<#URL>) ?;
-	schema:isBasedOnUrl ({ a [schema:Product] } OR @<#URL> OR @<#CreativeWork>) *;
+	# schema:isBasedOn ({ a [schema:Product] } OR @<#CreativeWork> OR @<#URL>) ?;
+	# schema:isBasedOnUrl ({ a [schema:Product] } OR @<#URL> OR @<#CreativeWork>) *;
 	schema:isFamilyFriendly @<#Boolean> ?;
-	schema:isPartOf (@<#URL> OR @<#CreativeWork>) ?;
+	# schema:isPartOf (@<#URL> OR @<#CreativeWork>) ?;
 	schema:keywords @<#Text> ?;
 	schema:learningResourceType @<#Text> ?;
-	schema:license (@<#URL> OR @<#CreativeWork>) ?;
+	# schema:license (@<#URL> OR @<#CreativeWork>) ?;
 	schema:locationCreated { a [schema:Place] } *;
 	schema:mainEntity @<#Thing> ?;
 	schema:material ({ a [schema:Product] } OR @<#URL> OR @<#Text>) *;
@@ -80,7 +80,7 @@ BASE <http://schema.org/shex>
 	schema:provider ({ a [schema:Person] } OR { a [schema:Organization] }) *;
 	schema:publication { a [schema:PublicationEvent] } *;
 	schema:publisher ({ a [schema:Person] } OR { a [schema:Organization] }) *;
-	schema:publishingPrinciples (@<#CreativeWork> OR @<#URL>) ?;
+	# schema:publishingPrinciples (@<#CreativeWork> OR @<#URL>) ?;
 	schema:recordedAt { a [schema:Event] } ?;
 	schema:releasedEvent { a [schema:PublicationEvent] } ?;
 	schema:review { a [schema:Review] } ?;
@@ -99,7 +99,7 @@ BASE <http://schema.org/shex>
 	schema:typicalAgeRange @<#Text> ?;
 	schema:version (@<#Text> OR @<#Number>) ?;
 	schema:video ({ a [schema:Clip] } OR { a [schema:VideoObject] }) *;
-	schema:workExample @<#CreativeWork> *;
+	# schema:workExample @<#CreativeWork> *;
 }
 
 
@@ -248,46 +248,113 @@ BASE <http://schema.org/shex>
 # Google-specific
 
 <#GoogleRecipe> @<#Recipe> AND{
-    schema:name @<#Text>;
-    schema:image @<#URL> OR @<#ImageObject> +;
+    schema:name @<#Text>
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#name"
+    // techdoc:description "The name of the dish.";
+
+    schema:image @<#URL> OR @<#ImageObject> +
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe"
+    // techdoc:description "Image of the completed dish.";
 }
 
 <#GoogleRecipeStrict> @<#Recipe> AND {
-    schema:aggregateRating { a [schema:AggregateRating] };
-    schema:author ({ a [schema:Person] } OR { a [schema:Organization] }) +;
-    schema:cookTime  @<#Duration>;
-    schema:datePublished (@<#Date> OR @<#DateTime>);
-    schema:description @<#Text>;
-    schema:keywords @<#Text>;
-    schema:prepTime @<#Duration>;
-    schema:recipeCategory  @<#Text>;
-    schema:recipeCuisine  @<#Text>;
-    schema:recipeIngredient @<#Text> +;
-    schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) +;
-    schema:recipeYield @<#Text> +;
-    schema:totalTime @<#Duration>;
+    schema:aggregateRating { a [schema:AggregateRating] }
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#aggregateRating"
+    // techdoc:description "Annotation for the average review score assigned to the item.";
+
+    schema:author ({ a [schema:Person] } OR { a [schema:Organization] }) +
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#author"
+    // techdoc:description "The name of the person or organization that wrote the recipe.";
+
+    schema:cookTime  @<#Duration>
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#cookTime"
+    // techdoc:description "The time it takes to actually cook the dish in ISO 8601 format";
+
+    schema:datePublished (@<#Date> OR @<#DateTime>)
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#datePublished"
+    // techdoc:description "The date the recipe was published in ISO 8601 format";
+
+    schema:description @<#Text>
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#description"
+    // techdoc:description "A short summary describing the dish.";
+
+    schema:keywords @<#Text>
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#keywords"
+    // techdoc:description "Other terms for your recipe such as the season, the holiday, or other descriptors";
+
+    schema:prepTime @<#Duration>
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#prepTime"
+    // techdoc:description "The length of time it takes to prepare the dish, in ISO 8601 format";
+
+    schema:recipeCategory  @<#Text>
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#recipeCategoty"
+    // techdoc:description "The type of meal or course your recipe is about";
+
+    schema:recipeCuisine  @<#Text>
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#recipeCusine"
+    // techdoc:description "The region associated with your recipe";
+
+    schema:recipeIngredient @<#Text> +
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#recipeIngredient"
+    // techdoc:description "An ingredient used in the recipe.";
+
+    schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) +
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#recipeInstructions"
+    // techdoc:description "The steps to make the dish";
+
+    schema:recipeYield @<#Text> +
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#recipeYield"
+    // techdoc:description "The quantity produced by the recipe. Specify the number of servings produced from this recipe with just a number";
+
+    schema:totalTime @<#Duration>
+    // techdoc:url "https://developers.google.com/search/docs/data-types/recipe#totalTime"
+    // techdoc:description "The total time it takes to prepare the cook the dish, in ISO 8601 format";
 }
 
 ###########################
 # Bing-specific
 
 <#BingRecipe> @<#Recipe> AND {
-    schema:name @<#Text>;
+    schema:name @<#Text>
+    // techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
 }
 
 <#BingRecipeStrict> @<#Recipe> AND {
-    schema:author ({ a [schema:Person] } OR { a [schema:Organization] }) +;
-    schema:datePublished (@<#Date> OR @<#DateTime>);
-    schema:recipeCategory  @<#Text>;
-    schema:description @<#Text>;
-    schema:image @<#URL> OR @<#ImageObject> +;
-    schema:review { a [schema:Review] };
-    schema:prepTime @<#Duration>;
-    schema:totalTime @<#Duration>;
-    schema:recipeYield @<#Text> +;
-	schema:nutrition  { a [schema:NutritionInformation] };
-	schema:recipeIngredient @<#Text> +;
-    schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) +;
+    schema:author ({ a [schema:Person] } OR { a [schema:Organization] }) +
+    // techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
+
+    schema:datePublished (@<#Date> OR @<#DateTime>)
+    // techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
+
+    schema:recipeCategory  @<#Text>
+    // techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
+
+    schema:description @<#Text>
+    // techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
+
+    schema:image @<#URL> OR @<#ImageObject> +
+    // techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
+
+    schema:review { a [schema:Review] }
+    // techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
+
+    schema:prepTime @<#Duration>
+    // techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
+
+    schema:totalTime @<#Duration>
+    // techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
+
+    schema:recipeYield @<#Text> +
+    // techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
+
+	schema:nutrition  { a [schema:NutritionInformation] }
+	// techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
+
+	schema:recipeIngredient @<#Text> +
+	// techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
+
+    schema:recipeInstructions ( @<#CreativeWork> OR  { a [schema:ItemList] } OR  @<#Text>) +
+    // techdoc:url "https://www.bing.com/webmaster/help/markup-recipes-da2b3faa";
 }
 
 

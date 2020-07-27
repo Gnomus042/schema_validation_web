@@ -62,3 +62,7 @@ label {
     margin-right: 10px;
 }
 
+.result-item {
+    font-weight: normal;
+    margin-bottom: 0.5em;
+}
